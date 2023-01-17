@@ -28,6 +28,8 @@
 #ifndef VICE_VICII_RESOURCES_H
 #define VICE_VICII_RESOURCES_H
 
+#define IS_WIV (vicii_resources.model == VICII_MODEL_WIVPAL || vicii_resources.model == VICII_MODEL_WIVNTSC)
+
 /* VIC-II resources.  */
 struct vicii_resources_s {
     /* VIC-II border mode, 0..2 */

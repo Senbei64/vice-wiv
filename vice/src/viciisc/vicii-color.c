@@ -636,6 +636,8 @@ int vicii_color_update_palette(struct video_canvas_s *canvas)
         case VICII_MODEL_6567:          /* NTSC, 65 cycle, 9 luma, "old" */
         case VICII_MODEL_6572:          /* PAL-N, 65 cycle, ? luma, "?" */
         case VICII_MODEL_6569:          /* PAL, 63 cycle, 9 luma, "old" */
+        case VICII_MODEL_WIVNTSC:       /* NTSC, 65 cycle, hypotetical */
+        case VICII_MODEL_WIVPAL:        /* PAL, 63 cycle, hypotetical */
             cp = &vicii_palette_6569r5;
             break;
         case VICII_MODEL_8562:          /* NTSC, 65 cycle, 9 luma, "new" */
