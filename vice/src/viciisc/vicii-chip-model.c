@@ -267,6 +267,16 @@ static const struct ViciiChipModel chip_model_mos8565 = {
     1                /* new luminances */
 };
 
+static const struct ViciiChipModel chip_model_ii_wivpal = {
+    "VIC-II WIVPAL", /* name */
+    63,              /* cycles per line */
+    cycle_tab_pal,   /* cycle table */
+    312,             /* number of raster lines */
+    0,               /* color latency */
+    0,               /* old light pen irq mode */
+    1                /* new luminances */
+};
+
 
 /* NTSC (and PAL-N) */
 static const struct ViciiCycle cycle_tab_ntsc[] = {
@@ -432,6 +442,15 @@ static const struct ViciiChipModel chip_model_mos6572 = {
     1                /* new luminances */
 };
 
+static const struct ViciiChipModel chip_model_ii_wivntsc = {
+    "VIC-II WIVNTSC",/* name */
+    65,              /* cycles per line */
+    cycle_tab_ntsc,  /* cycle table */
+    263,             /* number of raster lines */
+    0,               /* color latency */
+    0,               /* old light pen irq mode */
+    1                /* new luminances */
+};
 
 /* Old NTSC */
 static const struct ViciiCycle cycle_tab_ntsc_old[] = {
@@ -833,6 +852,12 @@ void vicii_chip_model_init(void)
             break;
         case VICII_MODEL_6572:
             vicii_chip_model_set(&chip_model_mos6572);
+            break;
+        case VICII_MODEL_WIVPAL:
+            vicii_chip_model_set(&chip_model_ii_wivpal);
+            break;
+        case VICII_MODEL_WIVNTSC:
+            vicii_chip_model_set(&chip_model_ii_wivntsc);
             break;
         default:
             /* should never happen */

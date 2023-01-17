@@ -79,6 +79,8 @@ static const vice_gtk3_radiogroup_entry_t c64sc_vicii_models[] = {
     { "8562 (NTSC)",            VICII_MODEL_8562 },
     { "6567R56A (old NTSC)",    VICII_MODEL_6567R56A },
     { "6572 (PAL-N)",           VICII_MODEL_6572 },
+    { "WIV (PAL)",              VICII_MODEL_WIVPAL },
+    { "WIV (NTSC)",             VICII_MODEL_WIVNTSC },
     { NULL, -1 }
 };
 

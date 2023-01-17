@@ -122,7 +122,13 @@ static const struct vicii_model_info_s vicii_info[] = {
     { MACHINE_SYNC_NTSCOLD, 0 },
 
     /* VICII_MODEL_6572: PAL-N, 65 cycle, 9? luma, "?" */
-    { MACHINE_SYNC_PALN, 1 }
+    { MACHINE_SYNC_PALN, 1 },
+
+    /* VICII_MODEL_WIVPAL: PAL, 63 cycle */
+    { MACHINE_SYNC_PAL, 1 },
+
+    /* VICII_MODEL_WIVNTSC: NTSC, 65 cycle */
+    { MACHINE_SYNC_NTSC, 1 }
 };
 
 static int set_model(int model, void *param)
@@ -137,6 +143,8 @@ static int set_model(int model, void *param)
         case VICII_MODEL_8562:
         case VICII_MODEL_6567R56A:
         case VICII_MODEL_6572:
+        case VICII_MODEL_WIVPAL:
+        case VICII_MODEL_WIVNTSC:
             break;
         default:
             return -1;

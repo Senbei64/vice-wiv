@@ -69,7 +69,11 @@ struct snapshot_s;
 #define VICII_MODEL_6567R56A 5
 /* PAL-N, 65 cycle, ? luma, "?" */
 #define VICII_MODEL_6572    6
-#define VICII_MODEL_NUM 7
+/* PAL, hypotetical 6569 evolution */
+#define VICII_MODEL_WIVPAL   7
+/* NTSC, hypotetical 6567 evolution */
+#define VICII_MODEL_WIVNTSC   8
+#define VICII_MODEL_NUM 9
 
 extern int vicii_resources_init(void);
 extern int vicii_cmdline_options_init(void);
