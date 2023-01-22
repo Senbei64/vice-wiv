@@ -62,6 +62,9 @@
 /* just a dummy for the vicii-draw.c wrapper */
 #define VICII_DUMMY_MODE (0)
 
+/* VIC-II WIF flags */
+#define WIV_CRE (vicii.regs[0x13] & 0x01) /* Control Registers Enable: reads to $13 and $14 give control registers instead of light pen position */
+
 
 /* VIC-II structures.  This is meant to be used by VIC-II modules
    *exclusively*!  */

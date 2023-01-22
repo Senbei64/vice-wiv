@@ -143,7 +143,7 @@ inline static void update_raster_line(void)
 
 inline static void d011_store(uint8_t value)
 {
-    VICII_DEBUG_REGISTER(("Control register: $%02X", value));
+    VICII_DEBUG_REGISTER(("Control register 1: $%02X", value));
     VICII_DEBUG_REGISTER(("$D011 tricks at cycle %d, line $%04X, "
                           "value $%02X", vicii.raster_cycle, vicii.raster_line, value));
 
@@ -167,6 +167,20 @@ inline static void d012_store(uint8_t value)
     update_raster_line();
 }
 
+inline static void d013_store(const uint8_t value)
+{
+    VICII_DEBUG_REGISTER(("WIV Control register 3: $%02X", value));
+
+    vicii.regs[0x13] = value;
+}
+
+inline static void d014_store(const uint8_t value)
+{
+    VICII_DEBUG_REGISTER(("WIV Control register 4: $%02X", value));
+
+    vicii.regs[0x14] = value;
+}
+
 inline static void d015_store(const uint8_t value)
 {
     vicii.regs[0x15] = value;
@@ -174,7 +188,7 @@ inline static void d015_store(const uint8_t value)
 
 inline static void d016_store(const uint8_t value)
 {
-    VICII_DEBUG_REGISTER(("Control register: $%02X", value));
+    VICII_DEBUG_REGISTER(("Control register 2: $%02X", value));
 
     vicii.regs[0x16] = value;
 }
@@ -375,8 +389,16 @@ void vicii_store(uint16_t addr, uint8_t value)
             d012_store(value);
             break;
 
-        case 0x13:                /* $D013: Light Pen X */
-        case 0x14:                /* $D014: Light Pen Y */
+        case 0x13:                /* $D013: VIC-II WIV Control Register 3 */
+            if (IS_WIV) {
+                d013_store(value);
+            }
+            break;
+
+        case 0x14:                /* $D014: VIC-II WIV Control Register 4 */
+            if (IS_WIV) {
+                d014_store(value);
+            }
             break;
 
         case 0x15:                /* $D015: Sprite Enable */
@@ -607,12 +629,24 @@ uint8_t vicii_read(uint16_t addr)
             value = d01112_read(addr);
             break;
 
-        case 0x13:                /* $D013: Light Pen X */
+        case 0x13:                /* $D013: Light Pen X or VIC-II WIV Control Register 3 */
+            if (IS_WIV && WIV_CRE) {
+                VICII_DEBUG_REGISTER(("WIV Control Register 3: $%02X", vic.regs[addr]));
+                value = vicii.regs[addr];
+                break;
+            }
+
             VICII_DEBUG_REGISTER(("Light pen X: %d", vicii.light_pen.x));
             value = vicii.light_pen.x;
             break;
 
-        case 0x14:                /* $D014: Light Pen Y */
+        case 0x14:                /* $D014: Light Pen Y or VIC-II WIV Control Register 4 */
+            if (IS_WIV && WIV_CRE) {
+                VICII_DEBUG_REGISTER(("WIV Control Register 4: $%02X", vic.regs[addr]));
+                value = vicii.regs[addr];
+                break;
+            }
+
             VICII_DEBUG_REGISTER(("Light pen Y: %d", vicii.light_pen.y));
             value = vicii.light_pen.y;
             break;
