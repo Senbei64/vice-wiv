@@ -177,7 +177,7 @@ static inline void check_vborder_bottom(int line)
     int rsel = vicii.regs[0x11] & 0x08;
 
     if (line == (rsel ? VICII_25ROW_STOP_LINE : VICII_24ROW_STOP_LINE)) {
-        vicii.set_vborder = 1;
+        vicii.set_vborder = IS_WIV && WIV_DVB ? 0 : 1;
     }
 }
 
@@ -195,7 +195,7 @@ static inline void check_hborder(unsigned int cycle_flags)
     }
     /* Right border starts at cycles 56 (csel=0) or 57 (csel=1) on PAL. */
     if (cycle_is_check_border_r(cycle_flags, csel)) {
-        vicii.main_border = 1;
+        vicii.main_border = IS_WIV && WIV_DMB ? 0 : 1;
     }
 }
 

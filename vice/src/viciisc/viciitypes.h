@@ -62,8 +62,10 @@
 /* just a dummy for the vicii-draw.c wrapper */
 #define VICII_DUMMY_MODE (0)
 
-/* VIC-II WIF flags */
+/* VIC-II WIV flags */
 #define WIV_CRE (vicii.regs[0x13] & 0x01) /* Control Registers Enable: reads to $13 and $14 give control registers instead of light pen position */
+#define WIV_DVB (vicii.regs[0x13] & 0x04) /* Disable Vertical Border */
+#define WIV_DMB (vicii.regs[0x13] & 0x08) /* Disable Main Border */
 
 
 /* VIC-II structures.  This is meant to be used by VIC-II modules
