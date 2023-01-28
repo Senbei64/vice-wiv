@@ -672,7 +672,7 @@ uint8_t vicii_read(uint16_t addr)
         case 0x18:              /* $D018: Video and char matrix base address */
             VICII_DEBUG_REGISTER(("Video memory address register: $%02X",
                                   vicii.regs[addr]));
-            value = vicii.regs[addr] | 0x1;
+            value = vicii.regs[addr] | (IS_WIV && WIV_XMP ? 0x0 : 0x1);
             break;
 
         case 0x19:                /* $D019: IRQ flag register */

@@ -64,6 +64,7 @@
 
 /* VIC-II WIV flags */
 #define WIV_CRE (vicii.regs[0x13] & 0x01) /* Control Registers Enable: reads to $13 and $14 give control registers instead of light pen position */
+#define WIV_XMP (vicii.regs[0x13] & 0x02) /* eXtended Memory Pointers: enable all bits of register $18 */
 #define WIV_DVB (vicii.regs[0x13] & 0x04) /* Disable Vertical Border */
 #define WIV_DMB (vicii.regs[0x13] & 0x08) /* Disable Main Border */
 

@@ -39,6 +39,8 @@
 #include "types.h"
 #include "vicii-chip-model.h"
 #include "vicii-fetch.h"
+#include "vicii-resources.h"
+#include "vicii.h"
 #include "viciitypes.h"
 
 #ifdef DEBUG
@@ -167,10 +169,22 @@ inline static uint16_t g_fetch_addr(uint8_t mode)
     /* BMM */
     if (mode & 0x20) {
         a = (vicii.vc << 3) | vicii.rc;
-        a |= (vicii.regs[0x18] & 0x8) << 10;
+
+        if (IS_WIV) {
+            a += (vicii.regs[0x18] & (WIV_XMP ? 0xf : 0x8)) << 10;
+            a &= 0x3fff;
+        } else {
+            a |= (vicii.regs[0x18] & 0x8) << 10;
+        }
     } else {
         a = (vicii.vbuf[vicii.vmli] << 3) | vicii.rc;
-        a |= (vicii.regs[0x18] & 0xe) << 10;
+
+        if (IS_WIV) {
+            a += (vicii.regs[0x18] & (WIV_XMP ? 0xf : 0xe)) << 10;
+            a &= 0x3fff;
+        } else {
+            a |= (vicii.regs[0x18] & 0xe) << 10;
+        }
     }
 
     /* ECM */
