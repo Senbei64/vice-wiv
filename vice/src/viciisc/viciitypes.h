@@ -179,6 +179,7 @@ struct vicii_s {
 
     /* Internal memory pointer (VCBASE).  */
     int vcbase;
+    int vcbase_latch;
 
     /* Internal memory counter (VC).  */
     int vc;

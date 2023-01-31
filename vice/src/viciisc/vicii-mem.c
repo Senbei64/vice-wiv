@@ -275,6 +275,18 @@ inline static void d01d_store(const uint8_t value)
     vicii.regs[0x1d] = value;
 }
 
+inline static void vcbase_store(const uint16_t addr, const uint8_t value)
+{
+    VICII_DEBUG_REGISTER(("WIV vc base register %s: $%02X", (addr == 0x1e) ? "LOW" : "HIGH", value));
+
+    if (addr == 0x1e) {
+		((uint8_t *)&vicii.vcbase_latch)[0] = value;
+    } else {
+        ((uint8_t *)&vicii.vcbase_latch)[1] = value & 0x3f;
+    }
+}
+
+
 inline static void collision_store(const uint16_t addr, const uint8_t value)
 {
     VICII_DEBUG_REGISTER(("(collision register, Read Only)"));
@@ -438,9 +450,13 @@ void vicii_store(uint16_t addr, uint8_t value)
             d01d_store(value);
             break;
 
-        case 0x1e:                /* $D01E: Sprite-sprite collision */
-        case 0x1f:                /* $D01F: Sprite-background collision */
-            collision_store(addr, value);
+        case 0x1e:                /* $D01E: Sprite-sprite collision or VIC-WIV vc base low */
+        case 0x1f:                /* $D01F: Sprite-background collision or VIC-WIV vc base high */
+            if (IS_WIV) {
+                vcbase_store(addr, value);
+            } else {
+                collision_store(addr, value);
+            }
             break;
 
         case 0x20:                /* $D020: Border color */

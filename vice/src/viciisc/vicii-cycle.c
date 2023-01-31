@@ -205,7 +205,7 @@ static inline void vicii_cycle_start_of_frame(void)
     vicii.raster_line = 0;
     vicii.refresh_counter = 0xff;
     vicii.allow_bad_lines = 0;
-    vicii.vcbase = 0;
+    vicii.vcbase = IS_WIV ? vicii.vcbase_latch : 0;
     vicii.vc = 0;
     vicii.light_pen.triggered = 0;
 

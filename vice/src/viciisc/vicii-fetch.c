@@ -210,7 +210,8 @@ void vicii_fetch_matrix(void)
         vicii.cbuf[vicii.vmli] = vicii.ram_base_phi2[reg_pc] & 0xf;
     } else {
         vicii.vbuf[vicii.vmli] = fetch_phi2(v_fetch_addr(vicii.vc));
-        vicii.cbuf[vicii.vmli] = mem_color_ram_vicii[vicii.vc];
+		// vc in WIV can span the whole 16KB bank, but color RAM is still 1KB
+        vicii.cbuf[vicii.vmli] = mem_color_ram_vicii[vicii.vc & 0x3ff];
     }
 }
 
@@ -281,7 +282,7 @@ uint8_t vicii_fetch_graphics(void)
     vicii.vmli++;
 
     vicii.vc++;
-    vicii.vc &= 0x3ff;
+    vicii.vc &= IS_WIV ? 0x3fff : 0x3ff; // vc in WIV has 14 bits
 
     return data;
 }
